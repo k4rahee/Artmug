@@ -939,7 +939,7 @@ document.querySelectorAll('.faq-q').forEach(btn=>{btn.addEventListener('click',(
 
 /* ═══ PORTFOLIO ═══ */
 const PD={broadcast:{kicker:'Live Stream',title:'방송 하이라이트',items:[{title:'오프닝 훅 편집',note:'첫 3초 시선 오프닝.',src:''},{title:'토크 템포 정리',note:'말맛을 살린 호흡 정리.',src:''},{title:'리액션 포인트 컷',note:'시청자 반응 유도 구성.',src:''},{title:'하이라이트 모음',note:'핵심 장면 압축.',src:''},{title:'합방 멀티 편집',note:'여러 소스 교차 구성.',src:''},{title:'엔딩 회수형 컷',note:'여운 남기는 마무리.',src:''}]},shorts:{kicker:'Shorts',title:'쇼츠 편집',items:[{title:'첫 1초 후킹형',note:'짧고 강한 도입부.',src:'',ratio:'vertical'},{title:'강조 자막형',note:'리듬감 있는 자막.',src:'',ratio:'vertical'},{title:'리액션 압축형',note:'짧은 호흡 압축.',src:'',ratio:'vertical'},{title:'썸네일 감성 컷',note:'클릭 유도 포인트.',src:'',ratio:'vertical'},{title:'대사 포인트',note:'핵심 문장 강조.',src:'',ratio:'vertical'},{title:'루프형 엔딩',note:'재시청 유도.',src:'',ratio:'vertical'}]},etc:{kicker:'기타',title:'기타 (협의/문의)',items:[{title:'컷 연결 연출',note:'무드 유지 연결.',src:''},{title:'장면 전환 샘플',note:'트랜지션 연출.',src:''},{title:'타이포 구성',note:'타이포그래피 연출.',src:''},{title:'BGM 타이밍',note:'음악 호흡 맞춤.',src:''},{title:'시퀀스 강조',note:'임팩트 연출.',src:''},{title:'기타 문의',note:'편하게 말씀해주세요.',src:''}]}};
-function pM(s){if(!s)return{thumb:'',embed:'',cands:[],type:'empty'};let v='';const a=s.match(/youtu\.be\/([A-Za-z0-9_-]{11})/),b=s.match(/[?&]v=([A-Za-z0-9_-]{11})/),c=s.match(/youtube\.com\/shorts\/([A-Za-z0-9_-]{11})/);if(a)v=a[1];else if(b)v=b[1];else if(c)v=c[1];if(v)return{thumb:`https://img.youtube.com/vi/${v}/hqdefault.jpg`,embed:`https://www.youtube.com/embed/${v}?autoplay=1&rel=0`,cands:[`https://img.youtube.com/vi/${v}/maxresdefault.jpg`,`https://img.youtube.com/vi/${v}/sddefault.jpg`,`https://img.youtube.com/vi/${v}/hqdefault.jpg`],type:'youtube',vid:v};return{thumb:'',embed:'',cands:[],type:'empty'}}
+function pM(s){if(!s)return{thumb:'',embed:'',cands:[],type:'empty'};let v='';const a=s.match(/youtu\.be\/([A-Za-z0-9_-]{11})/),b=s.match(/[?&]v=([A-Za-z0-9_-]{11})/),c=s.match(/youtube\.com\/shorts\/([A-Za-z0-9_-]{11})/);if(a)v=a[1];else if(b)v=b[1];else if(c)v=c[1];if(v)return{thumb:`https://img.youtube.com/vi/${v}/hqdefault.jpg`,embed:`https://www.youtube.com/embed/${v}?rel=0&modestbranding=1&playsinline=1`,cands:[`https://img.youtube.com/vi/${v}/maxresdefault.jpg`,`https://img.youtube.com/vi/${v}/sddefault.jpg`,`https://img.youtube.com/vi/${v}/hqdefault.jpg`],type:'youtube',vid:v};return{thumb:'',embed:'',cands:[],type:'empty'}}
 function hasM(i){return!!pM(i&&i.src).embed}
 function mR(i){return i&&i.ratio==='vertical'?'vertical':'horizontal'}
 const thC=new Map();
@@ -957,7 +957,7 @@ function pauseAp(){apP=true;cancelAnimationFrame(apR)}
 function rCats(){pfCats.innerHTML='';CO.forEach(k=>{const b=document.createElement('button');b.type='button';b.className='cat-s'+(k===aCat?' on':'');b.innerHTML=`<span class="ci">CAT · ${LB[k].idx}</span><span class="cn">${LB[k].title}</span><span class="cr">${LB[k].desc}</span>`;b.onclick=()=>{if(aCat===k)return;clInline();aCat=k;aIdx=fpI(k);rCats();rStage(true,true)};pfCats.appendChild(b)})}
 function rStage(ani=false,cc=false){const g=PD[aCat],cur=g.items[aIdx]||g.items[0];pfKick.textContent=g.kicker;pfTag.textContent=`#${String(aIdx+1).padStart(2,'0')}`;pfFeat.classList.toggle('empty',!hasM(cur));setTh(pfBg,cur);pfFeat.onclick=()=>openM(cur);pfTrack.innerHTML='';g.items.forEach((item,idx)=>{const c=document.createElement('button');c.type='button';c.className='pf-card'+(idx===aIdx?' on':'')+(!hasM(item)?' empty':'');c.innerHTML=`<div class="thumb"></div><span class="idx">#${String(idx+1).padStart(2,'0')}</span>`;setTh(c.querySelector('.thumb'),item);c.onclick=e=>{e.stopPropagation();if(!hasM(item))return;clInline();aIdx=idx;rStage(true);setTimeout(()=>openM(item),0)};c.onmouseenter=()=>{if(idx===aIdx||!hasM(item))return;setTh(pfBg,item);pauseAp()};c.onmouseleave=()=>{setTh(pfBg,PD[aCat].items[aIdx]);if(!pfFeat.matches(':hover'))startAp()};pfTrack.appendChild(c)});if(ani)startAp()}
 pfFeat.onmouseenter=pauseAp;pfFeat.onmouseleave=()=>{if(!pfTrack.querySelector('.pf-card:hover'))startAp()};
-function openM(item){const m=pM(item&&item.src);if(!m.embed){showToast('영상이 등록되지 않았어요');return}pauseAp();const r=mR(item);pfInline.innerHTML='';pfInline.className='pf-inline open'+(r==='vertical'?' vertical':'');const iframe=document.createElement('iframe');iframe.src=m.embed;iframe.allow='autoplay;encrypted-media;picture-in-picture';iframe.allowFullscreen=true;pfInline.appendChild(iframe);const x=document.createElement('button');x.className='pf-inline-x';x.textContent='✕';x.onclick=e=>{e.stopPropagation();clInline()};pfInline.appendChild(x)}
+function openM(item){const m=pM(item&&item.src);if(!m.embed){showToast('영상이 등록되지 않았어요');return}pauseAp();const r=mR(item);pfInline.innerHTML='';pfInline.className='pf-inline open'+(r==='vertical'?' vertical':'');const iframe=document.createElement('iframe');iframe.src=m.embed;iframe.allow='encrypted-media;picture-in-picture';iframe.allowFullscreen=true;pfInline.appendChild(iframe);const x=document.createElement('button');x.className='pf-inline-x';x.textContent='✕';x.onclick=e=>{e.stopPropagation();clInline()};pfInline.appendChild(x)}
 function clInline(){pfInline.className='pf-inline';pfInline.innerHTML='';startAp()}
 addEventListener('keydown',e=>{if(e.key==='Escape')clInline()});
 rCats();rStage();startAp();
@@ -1047,7 +1047,7 @@ document.getElementById('aHeroSave').onclick=()=>{
   const m=pM(url);
   const inner=document.getElementById('heroVidInner');
   if(m.embed&&inner){
-    inner.innerHTML='<iframe src="'+m.embed+'" allow="autoplay;encrypted-media;picture-in-picture" allowfullscreen style="width:100%;height:100%;border:none"></iframe>';
+    inner.innerHTML='<iframe src="'+m.embed+'" allow="encrypted-media;picture-in-picture" allowfullscreen style="width:100%;height:100%;border:none"></iframe>';
     showToast('대표 영상 저장됨');
   }else{
     inner.innerHTML='<div class="hero-vid-placeholder"><span class="hvp-icon">▶</span><span class="hvp-text">대표 영상</span></div>';
@@ -1114,7 +1114,7 @@ window.applyHeroVideo=function(url){
   const inner=document.getElementById('heroVidInner');
   const box=document.getElementById('heroVid');
   if(m.embed && inner){
-    inner.innerHTML='<iframe src="'+m.embed+'" allow="autoplay;encrypted-media;picture-in-picture" allowfullscreen style="width:100%;height:100%;border:none"></iframe>';
+    inner.innerHTML='<iframe src="'+m.embed+'" allow="encrypted-media;picture-in-picture" allowfullscreen style="width:100%;height:100%;border:none"></iframe>';
     if(box) box.classList.add('has-video');
   }else if(inner){
     inner.innerHTML='<span class="hvp-play">▶</span><span class="hvp-text">대표 영상</span>';
