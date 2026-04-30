@@ -684,6 +684,31 @@ body.light .wb{background:rgba(248,248,246,.88);box-shadow:0 2px 12px rgba(0,0,0
 .rvs.in>*:nth-child(1){transition-delay:0s}.rvs.in>*:nth-child(2){transition-delay:.07s}.rvs.in>*:nth-child(3){transition-delay:.14s}.rvs.in>*:nth-child(4){transition-delay:.21s}.rvs.in>*:nth-child(5){transition-delay:.28s}.rvs.in>*:nth-child(6){transition-delay:.35s}
 .rvs.in>*{opacity:1!important;transform:none!important}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}.rv,.rvs>*{opacity:1;transform:none}.sc,.mg,.cb{display:none!important}body::after{display:none}}
+
+
+/* ═══ EMBED MODE: Artmug iframe 안정화 ═══ */
+html.embed-mode,
+html.embed-mode body{
+  height:100%;
+  overflow-y:auto;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+}
+html.embed-mode::-webkit-scrollbar,
+html.embed-mode body::-webkit-scrollbar{display:none}
+html.embed-mode .tb{
+  position:fixed !important;
+  top:.8rem !important;
+  z-index:9999 !important;
+}
+html.embed-mode .tb.hide{
+  transform:translateX(-50%) !important;
+  opacity:1 !important;
+}
+html.embed-mode .sp{display:none}
+html.embed-mode .noise,
+html.embed-mode .orbs{pointer-events:none}
+
 </style>
 </head>
 <body class="light">
@@ -919,6 +944,45 @@ try {
 }
 </script>
 <script>
+
+/* ═══ EMBED MODE INIT / NAV FIX ═══ */
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const isEmbed = params.get('embed') === '1';
+  if(isEmbed){
+    document.documentElement.classList.add('embed-mode');
+  }
+
+  function smoothMoveTo(hash){
+    if(!hash || hash === '#') return false;
+    const target = document.querySelector(hash);
+    if(!target) return false;
+    const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - 88);
+    window.scrollTo({ top, behavior:'smooth' });
+    try{ history.replaceState(null, '', hash); }catch(e){}
+
+    if(isEmbed && window.parent && window.parent !== window){
+      try{
+        window.parent.postMessage({
+          type:'CHURRO_ARTMUG_NAV',
+          hash:hash,
+          top:top
+        }, '*');
+      }catch(e){}
+    }
+    return true;
+  }
+
+  document.addEventListener('click', function(e){
+    const a = e.target.closest('a[href^="#"]');
+    if(!a) return;
+    const href = a.getAttribute('href');
+    if(smoothMoveTo(href)){
+      e.preventDefault();
+    }
+  });
+})();
+
 
 /* ═══ TOAST ═══ */
 const toast=document.getElementById('toast'),tMsg=document.getElementById('tMsg');let tT;
@@ -1186,6 +1250,28 @@ window.saveArtmugDoc=async function(partial){
 window.loadArtmugDoc();
 
 })();
+
+
+/* ═══ IFRAME HEIGHT SYNC ═══ */
+(function(){
+  function sendHeight(){
+    if(!(window.parent && window.parent !== window)) return;
+    const h = Math.max(
+      document.body ? document.body.scrollHeight : 0,
+      document.documentElement ? document.documentElement.scrollHeight : 0,
+      document.body ? document.body.offsetHeight : 0,
+      document.documentElement ? document.documentElement.offsetHeight : 0
+    );
+    try{ window.parent.postMessage({type:'CHURRO_ARTMUG_HEIGHT', height:h+24}, '*'); }catch(e){}
+  }
+  window.addEventListener('load', sendHeight);
+  window.addEventListener('resize', sendHeight);
+  document.addEventListener('DOMContentLoaded', sendHeight);
+  setTimeout(sendHeight,300);
+  setTimeout(sendHeight,1000);
+  setTimeout(sendHeight,2500);
+})();
+
 </script>
 </body>
 </html>
