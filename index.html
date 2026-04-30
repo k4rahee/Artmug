@@ -684,32 +684,6 @@ body.light .wb{background:rgba(248,248,246,.88);box-shadow:0 2px 12px rgba(0,0,0
 .rvs.in>*:nth-child(1){transition-delay:0s}.rvs.in>*:nth-child(2){transition-delay:.07s}.rvs.in>*:nth-child(3){transition-delay:.14s}.rvs.in>*:nth-child(4){transition-delay:.21s}.rvs.in>*:nth-child(5){transition-delay:.28s}.rvs.in>*:nth-child(6){transition-delay:.35s}
 .rvs.in>*{opacity:1!important;transform:none!important}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}.rv,.rvs>*{opacity:1;transform:none}.sc,.mg,.cb{display:none!important}body::after{display:none}}
-
-
-/* ═══ EMBED MODE: Artmug iframe safe mode ═══ */
-html.embed-mode,
-html.embed-mode body{
-  overflow-y:auto;
-  scrollbar-width:none;
-  -ms-overflow-style:none;
-}
-html.embed-mode::-webkit-scrollbar,
-html.embed-mode body::-webkit-scrollbar{
-  width:0;
-  height:0;
-  display:none;
-}
-html.embed-mode .tb.hide{
-  transform:translateX(-50%);
-  opacity:1;
-}
-html.embed-mode .sp{
-  display:none;
-}
-html.embed-mode .tb{
-  z-index:900;
-}
-
 </style>
 </head>
 <body class="light">
@@ -920,7 +894,7 @@ html.embed-mode .tb{
 <!-- TOAST --><div class="toast" id="toast" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg><span id="tMsg"></span></div>
 <!-- ADMIN --><div class="adm-bd" id="admBd"></div><div class="adm-d" id="admD"><h3>✦ 포트폴리오 관리</h3><div id="admL"></div><div class="adiv"></div><h3>대표 영상</h3><div class="afr"><label>유튜브 URL</label><input id="aHeroVid" placeholder="https://youtu.be/..."></div><button class="abtn sec" id="aHeroSave" style="margin-bottom:.8rem">대표 영상 저장</button><div class="adiv"></div><h3>슬롯 설정</h3><div class="afr"><label>사용 중 슬롯</label><input type="number" id="aSlotUsed" value="2" min="0" max="5" style="width:60px"></div><div class="afr"><label>전체 슬롯</label><input type="number" id="aSlotTotal" value="5" min="1" max="10" style="width:60px"></div><button class="abtn sec" id="aSlotSave" style="margin-bottom:.8rem">슬롯 업데이트</button><div class="adiv"></div><h3 id="admFT">새 영상 추가</h3><div class="afr"><label>카테고리</label><select id="aCat"><option value="broadcast">방송 하이라이트</option><option value="shorts">쇼츠</option><option value="etc">기타</option></select></div><div class="afr"><label>제목</label><input id="aTitle" placeholder="제목"></div><div class="afr"><label>설명</label><input id="aNote" placeholder="설명"></div><div class="afr"><label>유튜브 URL</label><input id="aSrc" placeholder="https://youtu.be/..."></div><div class="afr"><label>비율</label><select id="aRatio"><option value="horizontal">가로</option><option value="vertical">세로</option></select></div><input type="hidden" id="aEid" value=""><button class="abtn" id="aSave">저장</button><button class="abtn sec" id="aCancel" style="margin-top:4px;display:none">취소</button></div>
 <!-- AUTH --><div class="auth" id="authOv"><div class="auth-p"><button class="auth-x" id="authX">✕</button><h3>Churro <span class="s">✦</span> Admin</h3><div class="auth-f"><label>이메일</label><input type="email" id="authEmail" placeholder="admin@churro.com"></div><div class="auth-f"><label>비밀번호</label><input type="password" id="authPw" placeholder="••••••••"></div><button class="auth-btn" id="authBtn">로그인</button><div class="auth-err" id="authErr"></div></div></div>
-<!-- WIDGETS --><div class="wid"><button class="wb th-btn" id="thBtn" title="테마 (T)"><span class="sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></span><span class="moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span></button><div class="auth-combo" id="authCombo"><button class="wb combo-main" id="loginBtn" title="관리자">🔑</button><button class="wb combo-set" id="setBtn" title="관리" style="display:none">⚙</button></div></div>
+<!-- WIDGETS --><div class="wid"><button class="wb th-btn" id="thBtn" title="테마 (T)"><span class="sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></span><span class="moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span></button></div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -945,23 +919,6 @@ try {
 }
 </script>
 <script>
-
-/* ═══ EMBED MODE INIT: keep internal nav working inside iframe ═══ */
-const CHURRO_IS_EMBED = new URLSearchParams(window.location.search).get('embed') === '1';
-if (CHURRO_IS_EMBED) {
-  document.documentElement.classList.add('embed-mode');
-}
-document.addEventListener('click', function(e){
-  const a = e.target.closest && e.target.closest('a[href^="#"]');
-  if(!a) return;
-  const hash = a.getAttribute('href');
-  if(!hash || hash === '#') return;
-  const target = document.querySelector(hash);
-  if(!target) return;
-  e.preventDefault();
-  const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - 84);
-  window.scrollTo({ top, behavior:'smooth' });
-}, true);
 
 /* ═══ TOAST ═══ */
 const toast=document.getElementById('toast'),tMsg=document.getElementById('tMsg');let tT;
@@ -1047,8 +1004,31 @@ const ov=document.getElementById('authOv'),admD=document.getElementById('admD'),
 document.getElementById('authX').onclick=()=>ov.classList.remove('open');
 ov.onclick=e=>{if(e.target===ov)ov.classList.remove('open')};
 admBd.onclick=()=>{admD.classList.remove('open');admBd.classList.remove('open')};
-/* 관리자 진입 */
-addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.shiftKey&&(e.key==='A'||e.key==='a')){e.preventDefault();if(isAdmin){admD.classList.toggle('open');admBd.classList.toggle('open',admD.classList.contains('open'));if(admD.classList.contains('open'))rAdm()}else ov.classList.add('open')}});
+/* 관리자 진입: 화면에서 admin을 순서대로 입력하면 열림 */
+let adminSeq='', adminSeqTimer=null;
+function openAdminGate(){
+  if(isAdmin){
+    toggleAdmin();
+  }else{
+    ov.classList.add('open');
+    setTimeout(()=>document.getElementById('authEmail')?.focus(),80);
+  }
+}
+addEventListener('keydown',e=>{
+  const t=e.target;
+  const editing=t&&(t.closest?.('input, textarea, select')||t.isContentEditable);
+  if(editing||e.ctrlKey||e.metaKey||e.altKey)return;
+  const k=(e.key||'').toLowerCase();
+  if(k.length!==1||!/[a-z]/.test(k))return;
+  clearTimeout(adminSeqTimer);
+  adminSeq=(adminSeq+k).slice(-5);
+  adminSeqTimer=setTimeout(()=>adminSeq='',1600);
+  if(adminSeq==='admin'){
+    adminSeq='';
+    clearTimeout(adminSeqTimer);
+    openAdminGate();
+  }
+});
 document.getElementById('authBtn').onclick=async()=>{const email=document.getElementById('authEmail').value.trim(),pw=document.getElementById('authPw').value;if(!email||!pw){document.getElementById('authErr').textContent='입력해주세요';return}try{if(auth){await auth.signInWithEmailAndPassword(email,pw);isAdmin=true;ov.classList.remove('open');showToast('관리자 로그인됨');if(authComboW)authComboW.classList.add('logged');if(loginBtnW)loginBtnW.textContent='✓';admD.classList.add('open');admBd.classList.add('open');rAdm()}else{if(email==='admin@churro.com'&&pw==='churro2026'){isAdmin=true;ov.classList.remove('open');showToast('로컬 로그인됨');if(authComboW)authComboW.classList.add('logged');if(loginBtnW)loginBtnW.textContent='✓';admD.classList.add('open');admBd.classList.add('open');rAdm()}else{document.getElementById('authErr').textContent='로컬: admin@churro.com / churro2026'}}}catch(e){document.getElementById('authErr').textContent=e.message||'실패'}};
 const loginBtnW=document.getElementById('loginBtn'),setBtnW=document.getElementById('setBtn'),authComboW=document.getElementById('authCombo');
 if(loginBtnW)loginBtnW.onclick=()=>{if(isAdmin){showToast('이미 로그인됨')}else{ov.classList.add('open')}};
