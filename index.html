@@ -525,8 +525,6 @@ body.light .tlbar-fill{
 .fin-total .lbl{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.6;display:block;margin-bottom:.2rem}
 .fin-total .amt{font-family:var(--display);font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;letter-spacing:-.04em;line-height:1}
 .fin-total .won{font-size:.4em;font-weight:700;opacity:.7;margin-left:2px}
-.est-cta{display:block;text-align:center;margin-top:.6rem;padding:.65rem;border:1px solid var(--line);border-radius:var(--r);font-weight:700;font-size:.82rem;color:var(--ink2);transition:all .2s}
-.est-cta:hover{border-color:var(--lime);color:var(--lime);background:var(--lime-s)}
 
 /* ═══ APPLY ═══ */
 .form-w{padding:1.8rem;border:1px solid var(--line);border-radius:var(--r2);background:var(--bg2)}
@@ -850,7 +848,6 @@ body.light .wb{background:rgba(248,248,246,.88);box-shadow:0 2px 12px rgba(0,0,0
     <aside class="est-panel">
       <div class="res-box"><h3>예상 견적</h3><div class="cr-row"><span>카테고리</span><strong id="cCat">방송 하이라이트</strong></div><div class="cr-row"><span>단가</span><strong id="cRate">10,000원</strong></div><div class="cr-row"><span>기본 금액</span><strong id="cBase">30,000원</strong></div><div class="cr-row"><span>비공개</span><strong id="cPriv">0원</strong></div><div class="cr-row"><span>우선 작업</span><strong id="cPrio">0원</strong></div><div class="cr-row"><span>4시간+ 추가</span><strong id="cLong">0원</strong></div><div class="cr-row disc"><span>쿠폰</span><strong id="cCpn">-6,000원</strong></div></div>
       <div class="fin-total"><div><span class="lbl">Estimated Total</span></div><div class="amt"><span id="cFin">24,000</span><span class="won">원</span></div></div>
-      <a href="#apply" class="est-cta">이 견적으로 신청하기 →</a>
     </aside>
   </div>
 </section>
@@ -1047,7 +1044,7 @@ function delI(ck,idx){if(!confirm('삭제?'))return;PD[ck].items.splice(idx,1);r
 /* ═══ EFFECTS ═══ */
 ;(()=>{const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
 (()=>{const b=document.getElementById('sp');const u=()=>{const h=document.documentElement;b.style.width=h.scrollHeight-h.clientHeight>0?(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%':'0%'};addEventListener('scroll',u,{passive:true});u()})();
-(()=>{if(rm||matchMedia('(hover:none)').matches)return;const c=document.getElementById('sc');if(!c)return;document.body.classList.add('hsc');let mx=0,my=0,on=false;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;if(!on){on=true;c.classList.add('on')}});document.addEventListener('mouseleave',()=>{c.classList.remove('on');on=false});const int='a,button,input,select,textarea,.pf-card,.card,.cat-s,.cat-btn,.tog,.proc-step,.wb,.btn-p,.btn-g,.cpn-copy,.faq-q,.fci-link,.est-cta,.adm-d,.auth-p';document.addEventListener('mouseover',e=>{if(e.target.closest(int))c.classList.add('exp')});document.addEventListener('mouseout',e=>{if(e.target.closest(int))c.classList.remove('exp')});const tick=()=>{c.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;requestAnimationFrame(tick)};tick()})();
+(()=>{if(rm||matchMedia('(hover:none)').matches)return;const c=document.getElementById('sc');if(!c)return;document.body.classList.add('hsc');let mx=0,my=0,on=false;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;if(!on){on=true;c.classList.add('on')}});document.addEventListener('mouseleave',()=>{c.classList.remove('on');on=false});const int='a,button,input,select,textarea,.pf-card,.card,.cat-s,.cat-btn,.tog,.proc-step,.wb,.btn-p,.btn-g,.cpn-copy,.faq-q,.fci-link,.adm-d,.auth-p';document.addEventListener('mouseover',e=>{if(e.target.closest(int))c.classList.add('exp')});document.addEventListener('mouseout',e=>{if(e.target.closest(int))c.classList.remove('exp')});const tick=()=>{c.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;requestAnimationFrame(tick)};tick()})();
 (()=>{if(rm||matchMedia('(hover:none)').matches)return;let last=0;document.addEventListener('mousemove',e=>{const now=performance.now();if(now-last<140)return;last=now;const s=document.createElement('div');s.className='sp-t';s.textContent='✦';s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';s.style.fontSize=(9+Math.random()*8)+'px';if(Math.random()<.2)s.classList.add('pk');document.body.appendChild(s);setTimeout(()=>s.remove(),800)},{passive:true})})();
 (()=>{if(rm||matchMedia('(hover:none)').matches)return;const g=document.getElementById('mg');let mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;g.classList.add('on')});document.addEventListener('mouseleave',()=>g.classList.remove('on'));const tick=()=>{cx+=(mx-cx)*.07;cy+=(my-cy)*.07;g.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;requestAnimationFrame(tick)};tick()})();
 (()=>{if(rm)return;const SK=['input','textarea','select','iframe','.modal','audio','video'];function sk(t){if(!t||!(t instanceof Element))return false;for(const s of SK)if(t.closest(s))return true;return false}
