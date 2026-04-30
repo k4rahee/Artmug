@@ -13,7 +13,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Churro✦ — 영상 편집 커미션"/>
 <meta name="twitter:image" content="https://k4rahee.github.io/og-commission.png"/>
-<meta name="theme-color" content="#08080c"/>
+<meta name="theme-color" content="#ffffff"/>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2308080c'/%3E%3Ctext x='16' y='22' font-size='18' text-anchor='middle' fill='%23c8ff00'%3E✦%3C/text%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -686,7 +686,7 @@ body.light .wb{background:rgba(248,248,246,.88);box-shadow:0 2px 12px rgba(0,0,0
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}.rv,.rvs>*{opacity:1;transform:none}.sc,.mg,.cb{display:none!important}body::after{display:none}}
 </style>
 </head>
-<body>
+<body class="light">
 <div class="bg-mesh"><div class="bg-orb"></div><div class="bg-orb"></div></div>
 <div class="sp" id="sp"></div>
 <div class="sc" id="sc"><span>✦</span></div>
@@ -987,7 +987,7 @@ document.getElementById('cpyF').onclick=async function(e){const v={name:document
 
 
 /* ═══ THEME ═══ */
-;(()=>{const b=document.getElementById('thBtn');if(localStorage.getItem('ch-th')==='light')document.body.classList.add('light');b.onclick=()=>{document.body.classList.toggle('light');localStorage.setItem('ch-th',document.body.classList.contains('light')?'light':'dark')}})();
+;(()=>{const b=document.getElementById('thBtn');const savedTheme=localStorage.getItem('ch-th');if(savedTheme==='dark')document.body.classList.remove('light');else document.body.classList.add('light');b.onclick=()=>{document.body.classList.toggle('light');localStorage.setItem('ch-th',document.body.classList.contains('light')?'light':'dark')}})();
 
 /* ═══ AUTH + ADMIN ═══ */
 ;(()=>{let isAdmin=false,auth=null,fbDb=null,artmugRef=null;
